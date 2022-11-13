@@ -1,13 +1,11 @@
-version: "3"
+version: "3.8"
 services:
   postgres:
     image: postgres:latest
     restart: always
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=app
-    ports:
-      - "5555:5432"
-    volumes:
-      - ./.data/postgres:/var/lib/postgresql/data

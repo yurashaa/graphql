@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,11 +18,29 @@
   },
   "homepage": "https://github.com/yurashaa/graphql#readme",
   "dependencies": {
+    "apollo-server-express": "^2.26.1",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1",
-    "express-graphql": "^0.12.0",
-    "graphql": "^15.8.0"
+    "graphql": "^15.8.0",
+    "pg": "^8.8.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.10",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "@types/node": "^18.11.9",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "8.22.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.4.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.8.4"
+  },
+  "overrides": {
+    "fs-capacitor": "3.0.0"
   }
 }

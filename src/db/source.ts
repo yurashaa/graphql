@@ -17,5 +17,3 @@ export const dataSource = new DataSource({
   logging: true,
   synchronize: true
 })
-
-console.log(dataSource)

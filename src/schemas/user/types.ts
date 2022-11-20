@@ -3,9 +3,12 @@ export const UserTypes = `
       id: ID
       username: String
       posts: [Post]
+      image: String
+      email: String
     }
     
     extend type Query {
+      me: User
       user(id: ID): User
       users: [User]
     }

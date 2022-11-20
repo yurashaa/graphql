@@ -4,12 +4,27 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import { Global, css } from '@emotion/react';
 import { BrowserRouter } from 'react-router-dom';
 import { createUploadLink } from 'apollo-upload-client';
+import { setContext } from '@apollo/client/link/context';
+import Cookies from 'universal-cookie';
 
 import { Footer, Header } from './components';
 import { Routes } from './routes';
 
+const cookies = new Cookies();
+
+const authLink = setContext((_, { headers }) => {
+	const token = cookies.get('token');
+
+	return {
+		headers: {
+			...headers,
+			authorization: token || '',
+		}
+	};
+});
+
 const client = new ApolloClient({
-	link: createUploadLink({ uri: `${process.env.REACT_APP_API_URL}/graphql` }),
+	link: authLink.concat(createUploadLink({ uri: `${process.env.REACT_APP_API_URL}/graphql` })),
 	cache: new InMemoryCache(),
 });
 

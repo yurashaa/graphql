@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express'
 import dotenv from 'dotenv'
 
 import { dataSource } from './db/source'
-import { typeDefs, resolvers } from './schemas'
+import { typeDefs, resolvers, context } from './schemas'
 dotenv.config()
 
 dataSource
@@ -15,7 +15,7 @@ dataSource
     console.error('Error during Data Source initialization:', err)
   })
 
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({ typeDefs, resolvers, context })
 
 const app = express()
 

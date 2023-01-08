@@ -1,6 +1,6 @@
 export const PostTypes = `
     type Post {
-      id: ID
+      id: Int
       content: String
       image: String
       user: User
@@ -9,17 +9,17 @@ export const PostTypes = `
     }
     
     extend type Query {
-      post(id: ID): Post
+      post(id: Int): Post
       posts: [Post]
     }
     
     input PostCreateDataInput {
         content: String
-        file: Upload!
+        file: Upload
     }
     
     input PostCreateReaction {
-        postId: ID
+        postId: Int
         toAdd: Boolean
     }
     

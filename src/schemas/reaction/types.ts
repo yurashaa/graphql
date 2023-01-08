@@ -1,6 +1,6 @@
 export const ReactionTypes = `
     type Reaction {
-      id: ID
+      id: Int
       user: User
       post: Post
     }
@@ -10,7 +10,7 @@ export const ReactionTypes = `
     }
     
     input ReactionCreateDataInput {
-        postId: ID
+        postId: Int
     }
     
     extend type Mutation {

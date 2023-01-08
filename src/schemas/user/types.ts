@@ -1,6 +1,6 @@
 export const UserTypes = `
     type User {
-      id: ID
+      id: Int
       username: String
       posts: [Post]
       image: String
@@ -9,7 +9,7 @@ export const UserTypes = `
     
     extend type Query {
       me: User
-      user(id: ID): User
+      user(id: Int): User
       users: [User]
     }
     
@@ -21,7 +21,7 @@ export const UserTypes = `
        username: String
     }
     input UserUpdateWhereInput {
-       id: ID
+       id: Int
     }
     
     extend type Mutation {

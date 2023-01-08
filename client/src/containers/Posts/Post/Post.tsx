@@ -12,10 +12,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useMutation } from '@apollo/client';
 
 import { IPost } from '../../../interfaces';
+import { CREATE_POST_REACTION } from '../../../gql/mutations';
+import { GET_POSTS } from '../../../gql/queries';
 
-export const Post = ({ id, image, user, content }: IPost) => {
+export const Post = ({ id, image, user, content, liked, reactionsCount }: IPost) => {
+	const [createReaction, { loading }] = useMutation(CREATE_POST_REACTION, { refetchQueries: [{ query: GET_POSTS }] });
+
+
 	const imageLink = `${process.env.REACT_APP_API_URL}/images/${image}`;
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -43,6 +49,10 @@ export const Post = ({ id, image, user, content }: IPost) => {
 		handleClose();
 	};
 
+	const createPostReaction = async () => {
+		await createReaction({variables: { postId: id, toAdd: !liked }});
+	};
+
 	return (
 		<Card sx={{ width: '700px' }}>
 			<CardHeader
@@ -65,8 +75,8 @@ export const Post = ({ id, image, user, content }: IPost) => {
 				</Typography>
 			</CardContent>
 			<CardActions disableSpacing>
-				<IconButton aria-label="add to favorites">
-					<FavoriteIcon />
+				<IconButton aria-label="add to favorites" disabled={loading} onClick={createPostReaction}>
+					<FavoriteIcon color={liked ? 'warning' : 'disabled'} /> {reactionsCount}
 				</IconButton>
 				<IconButton
 					aria-label="share"

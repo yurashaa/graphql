@@ -65,7 +65,7 @@ export const SignUp = () => {
 	const [signUp, { loading }] = useMutation(SIGN_UP, {
 		onCompleted: data =>  {
 			const cookies = new Cookies();
-			cookies.set('token', data.signUp);
+			cookies.set('token', data.signUp, { path: '/' });
 
 			navigate('/posts');
 		},

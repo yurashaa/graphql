@@ -10,6 +10,8 @@ query {
       id
       username
     }
+    reactionsCount
+    liked
   }
 }
 `;

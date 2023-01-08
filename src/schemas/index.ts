@@ -3,8 +3,9 @@ import jwt from 'jsonwebtoken'
 import { DataSource } from 'typeorm'
 
 import { UserTypes, UserResolvers, UserMutation, UserQuery } from './user'
-import { PostTypes, PostQuery, PostMutation } from './post'
+import { PostTypes, PostQuery, PostMutation, PostResolvers } from './post'
 import { AuthMutation, AuthTypes } from './auth'
+import { ReactionTypes } from './reaction'
 import { dataSource } from '../db/source'
 
 export const typeDefs = gql`
@@ -15,6 +16,7 @@ export const typeDefs = gql`
      ${UserTypes}
      ${PostTypes}
      ${AuthTypes}
+     ${ReactionTypes}
 `
 export const resolvers = {
   Query: {
@@ -27,7 +29,8 @@ export const resolvers = {
     ...PostMutation,
     ...AuthMutation
   },
-  User: UserResolvers
+  User: UserResolvers,
+  Post: PostResolvers
 }
 
 export const context = ({ req }): { userId?: number, dataSource: DataSource } => {

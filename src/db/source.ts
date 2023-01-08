@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 
 import { User } from '../schemas/user'
 import { Post } from '../schemas/post'
+import { Reaction } from '../schemas/reaction'
 
 dotenv.config()
 
@@ -13,7 +14,7 @@ export const dataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_NAME,
-  entities: [User, Post],
+  entities: [User, Post, Reaction],
   logging: true,
   synchronize: true
 })

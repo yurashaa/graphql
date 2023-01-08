@@ -37,7 +37,7 @@ export const SignIn = () => {
 	const [signIn, { loading }] = useMutation(SIGN_IN, {
 		onCompleted: data =>  {
 			const cookies = new Cookies();
-			cookies.set('token', data.signIn);
+			cookies.set('token', data.signIn, { path: '/' });
 
 			navigate('/posts');
 		},

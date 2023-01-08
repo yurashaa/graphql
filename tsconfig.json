@@ -12,5 +12,5 @@
         "strictNullChecks": true,
         "types": ["node", "mocha"]
     },
-    "exclude": ["client", "node_modules"]
+    "exclude": ["client"]
 }

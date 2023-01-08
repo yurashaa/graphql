@@ -3,10 +3,11 @@ import { v4 as uuid } from 'uuid'
 import { ReadStream } from 'fs'
 
 import { Post } from './entity'
-import { dataSource } from '../../db/source'
+import { DataSource } from 'typeorm'
+import { Reaction } from '../reaction'
 
 export const PostMutation = {
-  postCreate: async (parent, args: { data: { content: string, file: Promise<any> } }) => {
+  postCreate: async (parent, args: { data: { content: string, file: Promise<any> } }, { dataSource, userId }: { dataSource: DataSource, userId: number }) => {
     const { data: { content, file } } = args
 
     const { createReadStream, filename } = await file
@@ -29,10 +30,37 @@ export const PostMutation = {
 
     const post = new Post()
 
-    post.userId = 2
+    post.userId = userId
     post.content = content
     post.image = imagePath
 
     return await dataSource.getRepository(Post).save(post)
+  },
+
+  postCreateReaction: async (parent, args: { data: { postId: number, toAdd: boolean } }, { dataSource, userId }: { dataSource: DataSource, userId: number }) => {
+    const { data: { postId, toAdd } } = args
+
+    const post = await dataSource.getRepository(Post).findOneBy({ id: postId })
+
+    if (!post) {
+      throw new Error('Post does not exist')
+    }
+
+    if (toAdd) {
+      const reaction = new Reaction()
+
+      reaction.userId = userId
+      reaction.postId = postId
+
+      await dataSource.getRepository(Reaction).save(reaction)
+    } else {
+      const reaction = await dataSource.getRepository(Reaction).findOneBy({ postId, userId })
+
+      if (!reaction) {
+        throw new Error('Reaction does not exist')
+      }
+
+      await dataSource.getRepository(Reaction).remove(reaction)
+    }
   }
 }

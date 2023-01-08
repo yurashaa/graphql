@@ -4,6 +4,8 @@ export const PostTypes = `
       content: String
       image: String
       user: User
+      reactionsCount: Int
+      liked: Boolean
     }
     
     extend type Query {
@@ -16,7 +18,13 @@ export const PostTypes = `
         file: Upload!
     }
     
+    input PostCreateReaction {
+        postId: ID
+        toAdd: Boolean
+    }
+    
     extend type Mutation {
       postCreate(data: PostCreateDataInput): Post
+      postCreateReaction(data: PostCreateReaction): Post
     }
 `

@@ -5,4 +5,6 @@ export interface IPost {
     content: string;
     image?: string;
     user: IUser;
+    reactionsCount: number
+    liked: boolean
 }

@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm'
 
 import { User } from '../user'
+import { Reaction } from '../reaction'
 
 @Entity('Post')
 export class Post {
@@ -19,4 +20,7 @@ export class Post {
   @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn({ name: 'user_id' })
     user: User
+
+  @OneToMany(() => Reaction, (reaction) => reaction.post)
+    reactions: Reaction[]
 }

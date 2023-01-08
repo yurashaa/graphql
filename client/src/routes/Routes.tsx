@@ -11,7 +11,6 @@ const FullPage = styled.div`
 
 export const Routes = () => {
 	const { data, loading, error } = useQuery(GET_ME);
-	console.log(data);
 	return (
 		<FullPage>
 			<Switch>

@@ -13,6 +13,7 @@
         "project": ["tsconfig.json"]
     },
     "rules": {
-        "strict-boolean-expressions": "off"
+        "@typescript-eslint/strict-boolean-expressions": 0,
+        "@typescript-eslint/consistent-type-assertions": 0
     }
 }

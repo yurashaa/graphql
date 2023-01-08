@@ -1,12 +1,12 @@
 import { gql } from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
+import { DataSource } from 'typeorm'
 
-import { UserTypes, UserResolvers, UserMutation, UserQuery, User } from './user'
+import { UserTypes, UserResolvers, UserMutation, UserQuery } from './user'
 import { PostTypes, PostQuery, PostMutation } from './post'
 import { AuthMutation, AuthTypes } from './auth'
 import { dataSource } from '../db/source'
 
-// remember we only use gql in this file. types in other files are just simple strings
 export const typeDefs = gql`
      type Query {
         hello: String
@@ -30,14 +30,14 @@ export const resolvers = {
   User: UserResolvers
 }
 
-export const context = ({ req, res }): { userId?: number } => {
-  const token = req.headers.authorization || ''
+export const context = ({ req }): { userId?: number, dataSource: DataSource } => {
+  const token = req?.headers?.authorization || ''
 
   if (!token) {
-    return {}
+    return { dataSource }
   }
 
   const data = jwt.verify(token, process.env.JWT_SECRET)
 
-  return { userId: data.userId }
+  return { userId: data.userId, dataSource }
 }

@@ -9,7 +9,8 @@
         "esModuleInterop": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "types": ["node"]
+        "strictNullChecks": true,
+        "types": ["node", "mocha"]
     },
-    "exclude": ["client"]
+    "exclude": ["client", "node_modules"]
 }

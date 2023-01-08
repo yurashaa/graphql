@@ -2,13 +2,12 @@ import bcrypt from 'bcrypt'
 import { GraphQLError } from 'graphql'
 import jwt from 'jsonwebtoken'
 import { v4 as uuid } from 'uuid'
-
-import { dataSource } from '../../db/source'
-import { User } from '../user'
 import fs, { ReadStream } from 'fs'
 
+import { User } from '../user'
+
 export const AuthMutation = {
-  signIn: async (_, args) => {
+  signIn: async (_, args, { dataSource }) => {
     const { email, password } = args.data
 
     const user = await dataSource.getRepository(User).findOne({ where: { email }, select: ['id', 'password'] })
@@ -26,7 +25,7 @@ export const AuthMutation = {
     return jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '365d' })
   },
 
-  signUp: async (_, args) => {
+  signUp: async (_, args, { dataSource }) => {
     const { data: { email, username, password, file } } = args
 
     const existingUser = await dataSource.getRepository(User).findOne({ where: [{ email }, { username }] })

@@ -9,10 +9,10 @@ export const PostMutation = {
   postCreate: async (parent, args: { data: { content: string, file: Promise<any> } }) => {
     const { data: { content, file } } = args
 
-    const { createReadStream, filename, mimetype, encoding } = await file
+    const { createReadStream, filename } = await file
 
     const stream: ReadStream = createReadStream()
-    const imagePath = `${uuid() as string}-${filename as string}`
+    const imagePath = `${uuid()}-${filename as string}`
     const writeStream = fs.createWriteStream(`${process.cwd()}/public/images/${imagePath}`)
 
     await new Promise((resolve, reject) => {

@@ -1,0 +1,6 @@
+{
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "all": true,
+  "check-coverage": true,
+  "exclude": ["client/**/*.ts", "**/*.test.ts", "dist/**/*.js"]
+}

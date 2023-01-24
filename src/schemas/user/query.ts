@@ -3,7 +3,6 @@ import { User } from './entity'
 
 export const UserQuery = {
   me: async (_, __, ctx) => {
-    console.log(ctx.userId)
     return await dataSource.getRepository(User).findOne({ where: { id: ctx.userId } })
   },
   user: async (parent, args: { id: number }) => {

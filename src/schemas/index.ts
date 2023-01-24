@@ -20,7 +20,6 @@ export const typeDefs = gql`
 `
 export const resolvers = {
   Query: {
-    hello: () => 'Hello GraphQL',
     ...UserQuery,
     ...PostQuery
   },

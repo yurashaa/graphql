@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMan
 
 import { User } from '../user'
 import { Reaction } from '../reaction'
+import { Hashtag } from '../hashtag'
 
 @Entity('Post')
 export class Post {
@@ -23,4 +24,7 @@ export class Post {
 
   @OneToMany(() => Reaction, (reaction) => reaction.post)
     reactions: Reaction[]
+
+  @OneToMany(() => Hashtag, (hashtag) => hashtag.post)
+    hashtags: Hashtag[]
 }

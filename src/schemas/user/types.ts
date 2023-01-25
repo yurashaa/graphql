@@ -3,6 +3,7 @@ export const UserTypes = `
       id: Int
       username: String
       posts: [Post]
+      followedHashtags: [Hashtag]
       image: String
       email: String
     }

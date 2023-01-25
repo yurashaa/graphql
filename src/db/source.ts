@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import { User } from '../schemas/user'
 import { Post } from '../schemas/post'
 import { Reaction } from '../schemas/reaction'
+import { Hashtag } from '../schemas/hashtag'
 
 dotenv.config()
 
@@ -14,7 +15,7 @@ export const dataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_NAME,
-  entities: [User, Post, Reaction],
-  logging: true,
+  entities: [User, Post, Reaction, Hashtag],
+  logging: false,
   synchronize: true
 })

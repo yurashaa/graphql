@@ -6,6 +6,7 @@ import { UserTypes, UserResolvers, UserMutation, UserQuery } from './user'
 import { PostTypes, PostQuery, PostMutation, PostResolvers } from './post'
 import { AuthMutation, AuthTypes } from './auth'
 import { ReactionTypes } from './reaction'
+import { HashtagTypes, HashtagMutation } from './hashtag'
 import { dataSource } from '../db/source'
 
 export const typeDefs = gql`
@@ -17,6 +18,7 @@ export const typeDefs = gql`
      ${PostTypes}
      ${AuthTypes}
      ${ReactionTypes}
+     ${HashtagTypes}
 `
 export const resolvers = {
   Query: {
@@ -26,7 +28,8 @@ export const resolvers = {
   Mutation: {
     ...UserMutation,
     ...PostMutation,
-    ...AuthMutation
+    ...AuthMutation,
+    ...HashtagMutation
   },
   User: UserResolvers,
   Post: PostResolvers
